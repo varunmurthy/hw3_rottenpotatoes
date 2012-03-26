@@ -23,8 +23,9 @@ Background: movies have been added to database
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to check the 'PG' and 'R' checkboxes
-  When I check "ratings[PG]"
-  And I check "ratings[R]"
+  #When I check "ratings[PG]"
+  #And I check "ratings[R]"
+  Given I check the following ratings: PG, R
   # enter step(s) to uncheck all other checkboxes
   And I uncheck "ratings[PG-13]"
   And I uncheck "ratings[G]"
