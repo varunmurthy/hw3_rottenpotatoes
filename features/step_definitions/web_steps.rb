@@ -90,13 +90,6 @@ When /^(?:|I )check "([^"]*)"$/ do |field|
   check(field)
 end
 
-# Given /^(?:|I )check the following ratings: (.*)/ do |list|
-  # list.each do |val|
-    # val.rpartition(',')
-    # check(val)
-  # end
-# end 
-
 When /^(?:|I )uncheck "([^"]*)"$/ do |field|
   uncheck(field)
 end

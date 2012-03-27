@@ -4,7 +4,7 @@ Given /the following movies exist/ do |movies_table|
   movies_table.hashes.each do |movie|
     # each returned element will be a hash whose key is the table header.
     # you should arrange to add that movie to the database here.
-    Movie.create(movie)
+    Movie.create!(movie)
   end
   #assert false, "Unimplmemented"
 end
@@ -31,3 +31,9 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
     step %Q{I #{uncheck}check "ratings[#{rating}]"}
   end   
 end
+
+Then /^I should see all of the movies$/ do
+  rows = page.all('table#movies tbody tr').size
+  assert rows == Movie.count, 'Check Count'
+end
+
