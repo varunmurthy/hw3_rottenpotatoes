@@ -26,13 +26,10 @@ Scenario: sort movies alphabetically
   Given I check the following ratings: G, PG, PG-13, NC-17, R
   And I press "ratings_submit"
   And I follow "title_header"
-  # Then I should see "Aladdin" before "Amelie"
   Then I should see movies sorted by "title"
-  Then show me the page
 
 Scenario: sort movies in increasing order of release date
   # your steps here
-  When I am on the RottenPotatoes home page
   Given I check the following ratings: G, PG, PG-13, NC-17, R
   And I press "ratings_submit"
   And I follow "release_date_header"
