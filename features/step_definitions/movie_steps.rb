@@ -15,7 +15,9 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.content  is the entire content of the page as a string.
-  assert false, "Unimplmemented"
+  # puts e1,e2
+  # puts page.body
+  page.body.scan(Regexp.new("#{e1}.*#{e2}", Regexp::MULTILINE)).size > 0
 end
 
 # Make it easier to express checking or unchecking several boxes at once
@@ -37,3 +39,10 @@ Then /^I should see all of the movies$/ do
   assert rows == Movie.count, 'Check Count'
 end
 
+Then /^I should see movies sorted by "(.*)"$/ do |sortable|
+  movie_list = Movie.order(sortable)
+  movie_list[0..movie_list.length-2].zip(movie_list[1..movie_list.length-1]).each do |x, y|
+    step %Q{I should see "#{x[:title]}" before "#{y[:title]}"}
+  end
+end
+  
