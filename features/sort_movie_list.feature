@@ -33,5 +33,7 @@ Scenario: sort movies in increasing order of release date
   Given I check the following ratings: G, PG, PG-13, NC-17, R
   And I press "ratings_submit"
   And I follow "release_date_header"
+  # Then show me the page
   Then I should see movies sorted by "release_date"
+  # Then I should see "1981-06-12 00:00:00 UTC" before "2000-06-21 00:00:00 UTC"
 	

@@ -15,9 +15,17 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.content  is the entire content of the page as a string.
-  # puts e1,e2
+  # puts e1,e2,"This is one pair\n"
   # puts page.body
-  page.body.scan(Regexp.new("#{e1}.*#{e2}", Regexp::MULTILINE)).size > 0
+  ee1 = Regexp.escape(e1)
+  ee2 = Regexp.escape(e2)
+  result = page.body.scan(Regexp.new("#{ee1}.*#{ee2}", Regexp::MULTILINE)).size
+  # puts result 
+  if (result > 0)
+    assert true,'Matches found'
+  else
+    assert false, 'No Match found'
+  end
 end
 
 # Make it easier to express checking or unchecking several boxes at once
@@ -41,8 +49,14 @@ end
 
 Then /^I should see movies sorted by "(.*)"$/ do |sortable|
   movie_list = Movie.order(sortable)
-  movie_list[0..movie_list.length-2].zip(movie_list[1..movie_list.length-1]).each do |x, y|
-    step %Q{I should see "#{x[:title]}" before "#{y[:title]}"}
+  if sortable == "title"
+    movie_list[0..movie_list.length-2].zip(movie_list[1..movie_list.length-1]).each do |x, y|
+      step %Q{I should see "#{x[:title]}" before "#{y[:title]}"}
+    end
+  elsif sortable == "release_date"
+    movie_list[0..movie_list.length-2].zip(movie_list[1..movie_list.length-1]).each do |x, y|
+      step %Q{I should see "#{x[:release_date]}" before "#{y[:release_date]}"}
+    end
   end
 end
   
